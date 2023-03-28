@@ -60,7 +60,8 @@
     distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
   dnf:
     name: "{{ asdf_yum_global_dependencies }}"
-  become: True
+  become: true
+  become_user: "{{ asdf_user }}"
   retries: "{{ remote_package_retries }}"
   register: yum_deps_result
   until: yum_deps_result is succeeded
