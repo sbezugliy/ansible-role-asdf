@@ -51,6 +51,17 @@
   until: yum_deps_result is succeeded
   when: ansible_os_family == "RedHat"
 
+- name: "install asdf global dependencies with dnf for Amazon Linux 2023"
+  vars:
+    distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
+  dnf:
+    name: "{{ asdf_yum_global_dependencies }}"
+  become: True
+  retries: "{{ remote_package_retries }}"
+  register: yum_deps_result
+  until: yum_deps_result is succeeded
+  when: distribution == "Amazon Linux 2023"
+
 - name: "ensure asdf_dir presence and ownership"
   file:
     path: "{{ asdf_dir }}"
