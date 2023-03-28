@@ -32,4 +32,5 @@
   register: yum_php_result
   until: yum_php_result is succeeded
   become: True
+  become_user: "root"
   when: distribution == "Amazon Linux 2023"

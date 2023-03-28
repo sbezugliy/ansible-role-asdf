@@ -32,4 +32,5 @@
   register: yum_nodejs_result
   until: yum_nodejs_result is succeeded
   become: True
+  become_user: "root"
   when: distribution == "Amazon Linux 2023"
