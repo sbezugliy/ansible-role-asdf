@@ -23,14 +23,13 @@
     - ansible_os_family == "RedHat"
     - distribution != "Amazon Linux 2023"
 
-- name: "install erlang dependencies with dnf for Amazon Linux 2023"
-  vars:
-    distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
-  dnf:
-    name: "{{ asdf_yum_erlang_dependencies }}"
-  retries: "{{ remote_package_retries }}"
-  register: yum_erlang_result
-  until: yum_erlang_result is succeeded
-  become: true
-  become_user: "{{ asdf_user }}"
-  when: distribution == "Amazon Linux 2023"
+# - name: "install erlang dependencies with dnf for Amazon Linux 2023"
+#   vars:
+#     distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
+#   dnf:
+#     name: "{{ asdf_yum_erlang_dependencies }}"
+#   retries: "{{ remote_package_retries }}"
+#   register: yum_erlang_result
+#   until: yum_erlang_result is succeeded
+#   become: true
+#   when: distribution == "Amazon Linux 2023"

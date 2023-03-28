@@ -23,17 +23,16 @@
     - ansible_os_family == "RedHat"
     - distribution != "Amazon Linux 2023"
 
-- name: "install plugin dependencies with dnf for Amazon Linux 2023"
-  vars:
-    distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
-  dnf:
-    name: "{{ asdf_yum_optional_dependencies }}"
-  retries: "{{ remote_package_retries }}"
-  register: dnf_result
-  until: dnf_result is succeeded
-  become: true
-  become_user: "{{ asdf_user }}"
-  when: distribution == "Amazon Linux 2023"
+# - name: "install plugin dependencies with dnf for Amazon Linux 2023"
+#   vars:
+#     distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
+#   dnf:
+#     name: "{{ asdf_yum_optional_dependencies }}"
+#   retries: "{{ remote_package_retries }}"
+#   register: dnf_result
+#   until: dnf_result is succeeded
+#   become: true
+#   when: distribution == "Amazon Linux 2023"
 
 - name: "install plugins"
   command: "bash -lc 'source /etc/profile.d/asdf.sh && asdf plugin-add {{ item.name }} {{ item.repository | default() }}'"
