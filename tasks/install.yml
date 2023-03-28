@@ -53,7 +53,7 @@
   until: yum_deps_result is succeeded
   when: 
     - ansible_os_family == "RedHat"
-    - distribution == "Amazon Linux 2023"
+    - distribution != "Amazon Linux 2023"
 
 - name: "install asdf global dependencies with dnf for Amazon Linux 2023"
   vars:

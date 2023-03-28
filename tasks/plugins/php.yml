@@ -21,7 +21,7 @@
   become: True
   when: 
     - ansible_os_family == "RedHat"
-    - distribution == "Amazon Linux 2023"
+    - distribution != "Amazon Linux 2023"
 
 - name: "install php dependencies with dnf for Amazon Linux 2023"
   vars:
