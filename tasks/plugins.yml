@@ -31,8 +31,8 @@
   retries: "{{ remote_package_retries }}"
   register: dnf_result
   until: dnf_result is succeeded
-  become: True
-  become_user: "root"
+  become: true
+  become_user: "{{ asdf_user }}"
   when: distribution == "Amazon Linux 2023"
 
 - name: "install plugins"
