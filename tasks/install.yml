@@ -43,13 +43,17 @@
   when: ansible_os_family == "Debian"
 
 - name: "install asdf global dependencies with yum"
+  vars:
+    distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
   yum:
     name: "{{ asdf_yum_global_dependencies }}"
   become: True
   retries: "{{ remote_package_retries }}"
   register: yum_deps_result
   until: yum_deps_result is succeeded
-  when: ansible_os_family == "RedHat"
+  when: 
+    - ansible_os_family == "RedHat"
+    - distribution == "Amazon Linux 2023"
 
 - name: "install asdf global dependencies with dnf for Amazon Linux 2023"
   vars:

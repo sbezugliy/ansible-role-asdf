@@ -11,13 +11,17 @@
   when: ansible_os_family == "Debian"
 
 - name: "install php dependencies with yum"
+  vars:
+    distribution: "{{ ansible_facts['distribution'] }} {{ ansible_facts['system'] }} {{ ansible_facts['distribution_version'] }}"
   yum:
     name: "{{ asdf_yum_php_dependencies }}"
   retries: "{{ remote_package_retries }}"
   register: yum_php_result
   until: yum_php_result is succeeded
   become: True
-  when: ansible_os_family == "RedHat"
+  when: 
+    - ansible_os_family == "RedHat"
+    - distribution == "Amazon Linux 2023"
 
 - name: "install php dependencies with dnf for Amazon Linux 2023"
   vars:
